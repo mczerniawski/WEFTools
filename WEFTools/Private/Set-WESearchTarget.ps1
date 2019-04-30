@@ -1,17 +1,17 @@
-function Set-SearchTarget {
+function Set-WESearchTarget {
     [CmdletBinding()]
     param
     (
         [Parameter(Mandatory = $true,
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [ValidateNotNullOrEmpty()]
-        [stringp[]]
+        [string[]]
         $ComputerName,
 
         [Parameter(Mandatory = $true,
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [ValidateNotNullOrEmpty()]
-        [stringp[]]
+        [string[]]
         $LogName
 
     )

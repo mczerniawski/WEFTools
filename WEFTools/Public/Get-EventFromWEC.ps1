@@ -3,9 +3,18 @@ function Get-EventFromWEC {
 
     param
     (
-        #DefinitionsAD = Get-WEFDefinitions
-        #Times         = Get-WEFTimes
-        #Target        = Get-WEFTarget
+        [Parameter(Mandatory, HelpMessage = 'Name of file with definitions')]
+        [ValidateSet('ComputerCreateDeleteChange','GroupCreateDelete','ADGroupChanges','UserAccountEnabledDisabled','UserLocked','UserPasswordChange','UserUnlocked')]
+        [string[]]
+        $WEDefinitionName,
+
+        $Times,
+
+        [Parameter(Mandatory = $false, HelpMessage = 'Path were definitions are stored')]
+        [ValidateScript( { Test-Path -Path $_ -PathType Container })]
+        [string]
+        $WEDefinitionPath,
+
         [Parameter(Mandatory = $false, HelpMessage = 'Name of WEC server',
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [string]
@@ -29,37 +38,58 @@ function Get-EventFromWEC {
         [Parameter(Mandatory = $false,
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [string]
-        $WorkspacePrimaryKey
+        $WorkspacePrimaryKey,
+
+        [Parameter(Mandatory = $false, HelpMessage = 'Output Events to Screen',
+            ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
+        [switch]
+        $Output
     )
+    begin {
+        if ($PSBoundParameters.ContainsKey('WEDefinitionPath')) {
+            $WEDefinitionPathFinal = $WEDefinitionPath
+        }
+        else {
+            $WEDefinitionPathFinal = Get-Item -Path "$PSScriptRoot\..\Configuration\Definitions"
+        }
+        if($PSBoundParameters.ContainsKey('ComputerName')){
+            $ComputerToQuery = $ComputerName
+        }
+        else {
+            $ComputerToQuery = $env:ComputerName
+        }
+    }
     process {
 
-        #TUTAJ zbuduj sobie co wyciagnac z logow na podstawie AD definitions
-        #jak juz bedize calosc - wykonac
-
-        #$FindEventsSplat = @{
-        #    DefinitionsAD = Get-WEFDefinitions
-        #    Times         = Get-WEFTimes
-        #    Target        = Set-SearchTarget -computerName $ComputerName -LogName $DefinitionsAD.SearchLogName
-        #    Verbose       = $true
-        #}
-
-        $invocationStartTime = [DateTime]::UtcNow
-        #Find-Events @FindEventsSplat
-        $WECEvent = Get-ConfigurationData -ConfigurationPath 'C:\Repos\Private-GIT\WEFTools\WEFTools\Configuration\Definitions\SampleEvents.json'
-        Start-Sleep -Seconds 2
-
-        $invocationEndTime = [DateTime]::UtcNow
-
-        if ($PSBoundParameters.ContainsKey('WriteToAzureLog')) {
-            $writeEventToLogAnalyticsSplat = @{
-                WECEvent            = $WECEvent
-                ALTableIdentifier   = $ALTableIdentifier
-                ALWorkspaceID       = $ALWorkspaceID
-                WorkspacePrimaryKey = $WorkspacePrimaryKey
-                invocationStartTime = $invocationStartTime
-                invocationEndTime   = $invocationEndTime
+        foreach ( $definition in $WEDefinitionName) {
+            $Definitions = Get-WEDefinition -WEDefinitionName $definition -WEDefinitionPath $WEDefinitionPathFinal
+            $FindEventsSplat = @{
+                Definitions = $Definitions.SearchDefinition
+                Times         = $Times
+                Target        = Set-WESearchTarget -computerName $ComputerToQuery -LogName $Definitions.LogName
             }
-            Write-EventToLogAnalytics @writeEventToLogAnalyticsSplat
+            if ($PSBoundParameters.ContainsKey('Verbose')) {
+                $FindEventsSplat.Verbose = $true
+            }
+
+            $invocationStartTime = [DateTime]::UtcNow
+            $WECEvent = Find-Events @FindEventsSplat
+            $invocationEndTime = [DateTime]::UtcNow
+
+            if ($PSBoundParameters.ContainsKey('WriteToAzureLog')) {
+                $writeEventToLogAnalyticsSplat = @{
+                    WECEvent            = $WECEvent
+                    ALTableIdentifier   = $ALTableIdentifier
+                    ALWorkspaceID       = $ALWorkspaceID
+                    WorkspacePrimaryKey = $WorkspacePrimaryKey
+                    invocationStartTime = $invocationStartTime
+                    invocationEndTime   = $invocationEndTime
+                }
+                Write-EventToLogAnalytics @writeEventToLogAnalyticsSplat
+            }
+            if ($PSBoundParameters.ContainsKey('Output')) {
+                $WECEvent
+            }
         }
     }
 }

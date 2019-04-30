@@ -1,6 +1,6 @@
 {
     "SearchDefinition":  {
-                             "ADUserLockouts":  {
+                             "ADUserLocked":  {
                                                     "Events":  {
                                                                    "Fields":  {
                                                                                   "Computer":  "Domain Controller",
