@@ -6,12 +6,12 @@ function Get-EventFromWEC {
         #DefinitionsAD = Get-WEFDefinitions
         #Times         = Get-WEFTimes
         #Target        = Get-WEFTarget
-        [Parameter(Mandatory = $false,
-        ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
+        [Parameter(Mandatory = $false, HelpMessage = 'Name of WEC server',
+            ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [string]
         $ComputerName,
 
-        [Parameter(Mandatory = $false,
+        [Parameter(Mandatory = $false, HelpMessage = 'Should extracted logs be sent to Azure LA',
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [switch]
         $WriteToAzureLog,
@@ -19,17 +19,17 @@ function Get-EventFromWEC {
         [Parameter(Mandatory = $false, HelpMessage = 'Name for Table to store Events in Azure Log Analytics',
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [string]
-        $Identifier,
+        $ALTableIdentifier,
 
         [Parameter(Mandatory = $false,
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [string]
-        $CustomerId,
+        $ALWorkspaceID,
 
         [Parameter(Mandatory = $false,
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [string]
-        $SharedKey
+        $WorkspacePrimaryKey
     )
     process {
 
@@ -46,16 +46,16 @@ function Get-EventFromWEC {
         $invocationStartTime = [DateTime]::UtcNow
         #Find-Events @FindEventsSplat
         $WECEvent = Get-ConfigurationData -ConfigurationPath 'C:\Repos\Private-GIT\WEFTools\WEFTools\Configuration\Definitions\SampleEvents.json'
-        Sleep -Seconds 2
+        Start-Sleep -Seconds 2
 
         $invocationEndTime = [DateTime]::UtcNow
 
         if ($PSBoundParameters.ContainsKey('WriteToAzureLog')) {
             $writeEventToLogAnalyticsSplat = @{
                 WECEvent            = $WECEvent
-                Identifier          = $Identifier
-                CustomerId          = $CustomerId
-                SharedKey           = $SharedKey
+                ALTableIdentifier   = $ALTableIdentifier
+                ALWorkspaceID       = $ALWorkspaceID
+                WorkspacePrimaryKey = $WorkspacePrimaryKey
                 invocationStartTime = $invocationStartTime
                 invocationEndTime   = $invocationEndTime
             }

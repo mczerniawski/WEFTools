@@ -1,0 +1,50 @@
+{
+    "SearchDefinition":  {
+                             "ADGroupChanges":  {
+                                                    "Events":  {
+                                                                   "Fields":  {
+                                                                                  "Computer":  "Domain Controller",
+                                                                                  "Action":  "Action",
+                                                                                  "TargetUserName":  "Group Name",
+                                                                                  "Who":  "Who",
+                                                                                  "Date":  "When",
+                                                                                  "GroupTypeChange":  "Changed Group Type",
+                                                                                  "SamAccountName":  "Changed SamAccountName",
+                                                                                  "SidHistory":  "Changed SidHistory",
+                                                                                  "ID":  "Event ID",
+                                                                                  "RecordID":  "Record ID",
+                                                                                  "GatheredFrom":  "Gathered From",
+                                                                                  "GatheredLogName":  "Gathered LogName"
+                                                                              },
+                                                                   "Events":  [
+                                                                                  4728,
+                                                                                  4729,
+                                                                                  4732,
+                                                                                  4733,
+                                                                                  4735,
+                                                                                  4737,
+                                                                                  4745,
+                                                                                  4747,
+                                                                                  4750,
+                                                                                  4751,
+                                                                                  4752,
+                                                                                  4755,
+                                                                                  4756,
+                                                                                  4757,
+                                                                                  4760,
+                                                                                  4761,
+                                                                                  4762,
+                                                                                  4764
+                                                                              ],
+                                                                   "IgnoreWords":  {
+                                                                                       "Who":  "*ANONYMOUS*"
+                                                                                   },
+                                                                   "LogName":  "Security",
+                                                                   "SortBy":  "When",
+                                                                   "Enabled":  true
+                                                               },
+                                                    "Enabled":  true
+                                                }
+                         },
+    "LogName":  "WEC3-Account-Management"
+}

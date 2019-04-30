@@ -12,17 +12,17 @@ function Write-EventToLogAnalytics {
         [Parameter(Mandatory = $false, HelpMessage = 'Name for Table to store Events in Azure Log Analytics',
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [string]
-        $Identifier,
+        $ALTableIdentifier,
 
         [Parameter(Mandatory = $false,
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [string]
-        $CustomerId,
+        $ALWorkspaceID,
 
         [Parameter(Mandatory = $false,
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [string]
-        $SharedKey,
+        $WorkspacePrimaryKey,
 
         [Parameter(Mandatory = $true,
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
@@ -49,16 +49,16 @@ function Write-EventToLogAnalytics {
             $LogsToAzureLogs | Add-Member -MemberType NoteProperty -Name 'BatchId' -Value $BatchId
             $LogsToAzureLogs | Add-Member -MemberType NoteProperty -Name 'HostComputer' -Value ($env:computername)
             $exportArguments = @{
-                CustomerId     = $CustomerId
-                SharedKey      = $SharedKey
-                LogType        = $Identifier
-                TimeStampField = $invocationStartTime
-                WECEvent       = $LogsToAzureLogs
+                ALWorkspaceID       = $ALWorkspaceID
+                WorkspacePrimaryKey = $WorkspacePrimaryKey
+                ALTableIdentifier   = $ALTableIdentifier
+                TimeStampField      = $invocationStartTime
+                WECEvent            = $LogsToAzureLogs
             }
-            Write-Verbose -Message "Writing {$($LogsToAzureLogs.Count)} Events of {$Group} to Azure Log with: CustomerID - {$CustomerId}, BatchID - {$BatchId} and Identifier - {$Identifier}"
+            Write-Verbose -Message "Writing {$($LogsToAzureLogs.Count)} Events of {$Group} to Azure Log with: WorkspaceID - {$ALWorkspaceID}, BatchID - {$BatchId} into Table - {$ALTableIdentifier}"
 
-            $result = Export-LogAnalytics @exportArguments
-            if($result -ne 200){
+            $result = Export-WEToLogAnalytics @exportArguments
+            if ($result -ne 200) {
                 Write-Error -Message "Something went wrong with exporting to Azure Log - {ErrorCode: $($result.ErrorCode)}"
             }
         }

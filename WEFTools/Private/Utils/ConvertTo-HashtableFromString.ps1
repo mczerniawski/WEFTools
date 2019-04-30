@@ -1,10 +1,10 @@
-function Convert-HashtableToString {
+function ConvertTo-HashtableFromString {
     <#
     .SYNOPSIS
     Converts hashtable or any other dictionary to a serializable string. It also supports nested hashtables.
 
     .EXAMPLE
-    Convert-HashtableToString -Hashtable @{'key' = 'value'; 'keyNested' = @{'a' = 'b'}}
+    ConvertTo-HashtableFromString -Hashtable @{'key' = 'value'; 'keyNested' = @{'a' = 'b'}}
 
         @{'key'='value'; 'keyNested'=@{'a'='b'; }; }
     #>
@@ -25,7 +25,7 @@ function Convert-HashtableToString {
             $key = "'$key'"
             $value = $entry.Value
             if ($value -is [System.Collections.IDictionary]) {
-                $value = Convert-HashtableToString -Hashtable $value
+                $value = ConvertTo-HashtableFromString -Hashtable $value
             }
             else {
                 $value = $value -replace "'", "''"

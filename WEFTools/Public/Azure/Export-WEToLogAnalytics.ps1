@@ -1,4 +1,4 @@
-Function Export-LogAnalytics {
+Function Export-WEToLogAnalytics {
     [cmdletbinding()]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '')]
     Param(
@@ -6,12 +6,12 @@ Function Export-LogAnalytics {
         [Parameter(Mandatory = $true,
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [string]
-        $CustomerID,
+        $ALWorkspaceID,
 
         [Parameter(Mandatory = $true,
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [string]
-        $SharedKey,
+        $WorkspacePrimaryKey,
 
         [Parameter(Mandatory = $true,
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
@@ -22,10 +22,10 @@ Function Export-LogAnalytics {
         [Parameter(Mandatory = $true,
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [ValidateNotNullOrEmpty()]
-        $LogType,
+        $ALTableIdentifier,
 
         [Parameter(Mandatory = $true,
-        ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
+            ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [ValidateNotNullOrEmpty()]
         $TimeStampField
     )
@@ -38,32 +38,32 @@ Function Export-LogAnalytics {
         $contentType = 'application/json'
 
         $getLogAnalyticsSignatureSplat = @{
-            CustomerID    = $CustomerID
-            SharedKey     = $SharedKey
-            Date          = $rfc1123date
-            ContentLength = $body.Length
-            Method        = $method
-            ContentType   = $contentType
-            Resource      = $resource
+            ALWorkspaceID       = $ALWorkspaceID
+            WorkspacePrimaryKey = $WorkspacePrimaryKey
+            Date                = $rfc1123date
+            ContentLength       = $body.Length
+            Method              = $method
+            ContentType         = $contentType
+            Resource            = $resource
         }
-        $signature = Get-LogAnalyticsSignature @getLogAnalyticsSignatureSplat
+        $signature = Get-WELogAnalyticsSignature @getLogAnalyticsSignatureSplat
 
-        $uri = "https://{0}.ods.opinsights.azure.com{1}?api-version=2016-04-01" -f $CustomerID, $resource
+        $uri = "https://{0}.ods.opinsights.azure.com{1}?api-version=2016-04-01" -f $ALWorkspaceID, $resource
 
         $headers = @{
             "Authorization"        = $signature;
-            "Log-Type"             = $LogType;
+            "Log-Type"             = $ALTableIdentifier;
             "x-ms-date"            = $rfc1123date;
             "time-generated-field" = $TimeStampField;
         }
 
         $invokeWebRequestSplat = @{
-            ContentType = $contentType
-            Method = $method
+            ContentType     = $contentType
+            Method          = $method
             UseBasicParsing = $true
-            Uri = $uri
-            Headers = $headers
-            Body = $body
+            Uri             = $uri
+            Headers         = $headers
+            Body            = $body
         }
         $response = Invoke-WebRequest @invokeWebRequestSplat
         $response.StatusCode
