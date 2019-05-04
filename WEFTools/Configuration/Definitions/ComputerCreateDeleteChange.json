@@ -11,6 +11,7 @@
                                                                                             "UserPrincipalName":  "UserPrincipalName",
                                                                                             "HomeDirectory":  "Home Directory",
                                                                                             "HomePath":  "Home Path",
+                                                                                            "NoNameB4": "ComputerAction",
                                                                                             "ScriptPath":  "Script Path",
                                                                                             "ProfilePath":  "Profile Path",
                                                                                             "UserWorkstations":  "User Workstations",
