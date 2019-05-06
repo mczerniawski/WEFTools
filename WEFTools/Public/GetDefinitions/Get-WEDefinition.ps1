@@ -3,7 +3,7 @@ function Get-WEDefinition {
     param
     (
         [Parameter(Mandatory,HelpMessage = 'Name of file with definitions')]
-        [ValidateSet('ComputerCreateDeleteChange','GroupCreateDelete','ADGroupChanges','UserAccountEnabledDisabled','UserLocked','UserPasswordChange','UserUnlocked')]
+        [ValidateSet('ADComputerCreatedChanged','ADGroupChanges','ADGroupCreateDelete','ADPasswordChange','ADUserAccountEnabledDisabled','ADUserLocked','ADUserUnlocked','LogClearSystem','LogClearSecurity')]
         [string[]]
         $WEDefinitionName,
 

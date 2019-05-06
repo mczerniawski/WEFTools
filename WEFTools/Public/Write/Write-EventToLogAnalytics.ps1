@@ -32,7 +32,11 @@ function Write-EventToLogAnalytics {
         [Parameter(Mandatory = $true,
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [DateTime]
-        $invocationEndTime
+        $invocationEndTime,
+
+        [Parameter(Mandatory = $false, HelpMessage = 'Path with Cache File')]
+        [string]
+        $WECacheExportFile
 
     )
 
@@ -60,6 +64,28 @@ function Write-EventToLogAnalytics {
             $result = Export-WEToLogAnalytics @exportArguments
             if ($result -ne 200) {
                 Write-Error -Message "Something went wrong with exporting to Azure Log - {ErrorCode: $($result.ErrorCode)}"
+                if ($PSBoundParameters.ContainsKey('WECacheExportFile')) {
+                    $updateWECacheExportFileSplat = @{
+                        Path             = $WECacheExportFile
+                        LastRunTime      = $invocationEndTime
+                        WEDefinition     = $Group
+                        LastExportStatus = 'Error'
+                    }
+                    Update-WECacheExportFile @updateWECacheExportFileSplat
+                }
+            }
+            elseif($result -eq 200) {
+                #UpdateCache
+                if ($PSBoundParameters.ContainsKey('WECacheExportFile')) {
+                    $updateWECacheExportFileSplat = @{
+                        Path                  = $WECacheExportFile
+                        LastSuccessExportTime = $invocationEndTime
+                        LastRunTime           = $invocationEndTime
+                        WEDefinition          = $Group
+                        LastExportStatus      = 'Success'
+                    }
+                    Update-WECacheExportFile @updateWECacheExportFileSplat
+                }
             }
         }
     }

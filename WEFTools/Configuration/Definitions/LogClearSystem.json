@@ -1,0 +1,29 @@
+{
+    "SearchDefinition": {
+        "LogClearSystem": {
+            "Events": {
+                "Fields": {
+                    "Computer": "Computer",
+                    "Action": "Action",
+                    "Date": "Date",
+                    "Who":"Who",
+                    "SubjectUserName": "SubjectUserName",
+                    "SubjectDomainName": "SubjectDomainName",
+                    "NoNameB1":"ObjectAffected",
+                    "NoNameB5": "EventAction",
+                    "ID": "Event ID",
+                    "RecordID": "Record ID",
+                    "GatheredFrom": "Gathered From",
+                    "GatheredLogName": "Gathered LogName"
+                },
+                "Events": 104,
+                "IgnoreWords": {},
+                "LogName": "System",
+                "SortBy": "When",
+                "Enabled": true
+            },
+            "Enabled": true
+        }
+    },
+    "LogName": "WEC5-Log-Deletion-System"
+}

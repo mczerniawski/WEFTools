@@ -4,10 +4,12 @@ function Get-EventFromWEC {
     param
     (
         [Parameter(Mandatory, HelpMessage = 'Name of file with definitions')]
-        [ValidateSet('ComputerCreateDeleteChange','GroupCreateDelete','ADGroupChanges','UserAccountEnabledDisabled','UserLocked','UserPasswordChange','UserUnlocked')]
+        [ValidateSet('ADComputerCreatedChanged','ADGroupChanges','ADGroupCreateDelete','ADPasswordChange','ADUserAccountEnabledDisabled','ADUserLocked','ADUserUnlocked','LogClearSystem','LogClearSecurity')]
         [string[]]
         $WEDefinitionName,
 
+        [Parameter(Mandatory, HelpMessage = 'Hashtable with time range definition')]
+        [Hashtable]
         $Times,
 
         [Parameter(Mandatory = $false, HelpMessage = 'Path were definitions are stored')]
@@ -39,6 +41,10 @@ function Get-EventFromWEC {
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [string]
         $WorkspacePrimaryKey,
+
+        [Parameter(Mandatory=$false,HelpMessage = 'Path with Cache File')]
+        [string]
+        $WECacheExportFile,
 
         [Parameter(Mandatory = $false, HelpMessage = 'Output Events to Screen',
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
@@ -75,20 +81,27 @@ function Get-EventFromWEC {
             $invocationStartTime = [DateTime]::UtcNow
             $WECEvent = Find-Events @FindEventsSplat
             $invocationEndTime = [DateTime]::UtcNow
-
-            if ($PSBoundParameters.ContainsKey('WriteToAzureLog')) {
-                $writeEventToLogAnalyticsSplat = @{
-                    WECEvent            = $WECEvent
-                    ALTableIdentifier   = $ALTableIdentifier
-                    ALWorkspaceID       = $ALWorkspaceID
-                    WorkspacePrimaryKey = $WorkspacePrimaryKey
-                    invocationStartTime = $invocationStartTime
-                    invocationEndTime   = $invocationEndTime
+            if ($WECEvent.($definition)) {
+                if ($PSBoundParameters.ContainsKey('WriteToAzureLog')) {
+                    $writeEventToLogAnalyticsSplat = @{
+                        WECEvent            = $WECEvent
+                        ALTableIdentifier   = $ALTableIdentifier
+                        ALWorkspaceID       = $ALWorkspaceID
+                        WorkspacePrimaryKey = $WorkspacePrimaryKey
+                        invocationStartTime = $invocationStartTime
+                        invocationEndTime   = $invocationEndTime
+                    }
+                    if($PSBoundParameters.ContainsKey('WECacheExportFile')){
+                        $writeEventToLogAnalyticsSplat.WECacheExportFile= $WECacheExportFile
+                    }
+                    Write-EventToLogAnalytics @writeEventToLogAnalyticsSplat
                 }
-                Write-EventToLogAnalytics @writeEventToLogAnalyticsSplat
+                if ($PSBoundParameters.ContainsKey('Output')) {
+                    $WECEvent
+                }
             }
-            if ($PSBoundParameters.ContainsKey('Output')) {
-                $WECEvent
+            else {
+                Write-Verbose 'No Events found'
             }
         }
     }

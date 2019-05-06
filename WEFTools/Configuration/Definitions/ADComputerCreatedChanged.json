@@ -1,0 +1,71 @@
+{
+    "SearchDefinition": {
+        "ADComputerCreatedChanged": {
+            "Events": {
+                "Fields": {
+                    "Computer": "Domain Controller",
+                    "Action": "Action",
+                    "Date": "Date",
+                    "TargetDomainName": "TargetDomainName",
+                    "ObjectAffected": "ObjectAffected",
+                    "SamAccountName": "SamAccountName",
+                    "DisplayName": "DisplayName",
+                    "UserPrincipalName": "UserPrincipalName",
+                    "HomeDirectory": "Home Directory",
+                    "HomePath": "Home Path",
+                    "NoNameB4": "EventAction",
+                    "ScriptPath": "Script Path",
+                    "ProfilePath": "Profile Path",
+                    "UserWorkstations": "User Workstations",
+                    "PasswordLastSet": "Password Last Set",
+                    "AccountExpires": "Account Expires",
+                    "PrimaryGroupId": "Primary Group Id",
+                    "AllowedToDelegateTo": "Allowed To Delegate To",
+                    "OldUacValue": "Old Uac Value",
+                    "NewUacValue": "New Uac Value",
+                    "UserAccountControl": "User Account Control",
+                    "UserParameters": "User Parameters",
+                    "SidHistory": "Sid History",
+                    "Who": "Who",
+                    "ID": "Event ID",
+                    "RecordID": "Record ID",
+                    "GatheredFrom": "Gathered From",
+                    "GatheredLogName": "Gathered LogName"
+                },
+                "Ignore": {
+                    "SubjectUserName": "ANONYMOUS LOGON"
+                },
+                "Events": [
+                    4741,
+                    4742
+                ],
+                "IgnoreWords": {},
+                "LogName": "Security",
+                "Enabled": true
+            },
+            "Enabled": true
+        },
+        "ADComputerDeleted": {
+            "Events": {
+                "Fields": {
+                    "Computer": "Domain Controller",
+                    "Action": "Action",
+                    "ObjectAffected": "Computer Affected",
+                    "Who": "Who",
+                    "Date": "When",
+                    "ID": "Event ID",
+                    "RecordID": "Record ID",
+                    "GatheredFrom": "Gathered From",
+                    "GatheredLogName": "Gathered LogName"
+                },
+                "Events": 4743,
+                "IgnoreWords": {},
+                "LogName": "Security",
+                "SortBy": "When",
+                "Enabled": true
+            },
+            "Enabled": true
+        }
+    },
+    "LogName": "WEC3-Account-Management"
+}

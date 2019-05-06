@@ -1,0 +1,30 @@
+{
+    "SearchDefinition": {
+        "ADUserLocked": {
+            "Events": {
+                "Fields": {
+                    "Computer": "Domain Controller",
+                    "Action": "Action",
+                    "Date": "Date",
+                    "TargetUserName": "TargetUserName",
+                    "TargetDomainName": "TargetDomainName",
+                    "ObjectAffected": "ObjectAffected",
+                    "ObjectAffectedSID": "TargetSid",
+                    "Who": "Who",
+                    "NoNameB4": "EventAction",
+                    "ID": "Event ID",
+                    "RecordID": "Record ID",
+                    "GatheredFrom": "Gathered From",
+                    "GatheredLogName": "Gathered LogName"
+                },
+                "Events": 4740,
+                "IgnoreWords": {},
+                "LogName": "Security",
+                "SortBy": "When",
+                "Enabled": true
+            },
+            "Enabled": true
+        }
+    },
+    "LogName": "WEC-Authentication"
+}

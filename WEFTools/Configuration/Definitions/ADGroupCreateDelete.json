@@ -1,6 +1,6 @@
 {
     "SearchDefinition": {
-        "ADGroupChanges": {
+        "ADGroupCreateDelete": {
             "Events": {
                 "Fields": {
                     "Computer": "Domain Controller",
@@ -20,28 +20,20 @@
                     "GatheredLogName": "Gathered LogName"
                 },
                 "Events": [
-                    4728,
-                    4729,
-                    4732,
-                    4733,
-                    4735,
-                    4737,
-                    4745,
-                    4747,
-                    4750,
-                    4751,
-                    4752,
-                    4755,
-                    4756,
-                    4757,
-                    4760,
-                    4761,
-                    4762,
-                    4764
+                    4727,
+                    4730,
+                    4731,
+                    4734,
+                    4744,
+                    4748,
+                    4749,
+                    4753,
+                    4754,
+                    4758,
+                    4759,
+                    4763
                 ],
-                "IgnoreWords": {
-                    "Who": "*ANONYMOUS*"
-                },
+                "IgnoreWords": {},
                 "LogName": "Security",
                 "SortBy": "When",
                 "Enabled": true
