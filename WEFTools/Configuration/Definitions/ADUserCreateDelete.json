@@ -1,0 +1,33 @@
+{
+    "SearchDefinition": {
+        "ADUserCreateDelete": {
+            "Events": {
+                "Fields": {
+                    "Computer": "Domain Controller",
+                    "Date": "Date",
+                    "Action": "Action",
+                    "TargetUserName": "TargetUserName",
+                    "TargetDomainName": "TargetDomainName",
+                    "NoNameB4": "EventAction",
+                    "KeyWord": "KeyWord",
+                    "Who": "Who",
+                    "ObjectAffected": "ObjectAffected",
+                    "ID": "Event ID",
+                    "RecordID": "Record ID",
+                    "GatheredFrom": "Gathered From",
+                    "GatheredLogName": "Gathered LogName"
+                },
+                "Events": [
+                    4720,
+                    4726
+                ],
+                "IgnoreWords": {},
+                "LogName": "Security",
+                "SortBy": "When",
+                "Enabled": true
+            },
+            "Enabled": true
+        }
+    },
+    "LogName": "WEC3-Account-Management"
+}

@@ -4,7 +4,7 @@ function Get-EventFromWEC {
     param
     (
         [Parameter(Mandatory, HelpMessage = 'Name of file with definitions')]
-        [ValidateSet('ADComputerCreatedChanged','ADGroupChanges','ADGroupCreateDelete','ADPasswordChange','ADUserAccountEnabledDisabled','ADUserLocked','ADUserUnlocked','LogClearSystem','LogClearSecurity')]
+        [ValidateSet('ADComputerCreatedChanged','ADGroupChanges','ADGroupCreateDelete','ADPasswordChange','ADUserCreateDelete','ADUserAccountEnabledDisabled','ADUserLocked','ADUserUnlocked','LogClearSystem','LogClearSecurity')]
         [string[]]
         $WEDefinitionName,
 

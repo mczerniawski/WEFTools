@@ -9,7 +9,6 @@ function Update-WECacheExportFile {
 
         [Parameter(Mandatory = $true, HelpMessage = 'Path with Cache File',
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
-        #[ValidateScript( {Test-Path -Path $_ -PathType Container})]
         [string]
         $Path,
 

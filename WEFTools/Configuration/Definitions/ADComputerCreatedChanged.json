@@ -50,10 +50,12 @@
                 "Fields": {
                     "Computer": "Domain Controller",
                     "Action": "Action",
-                    "ObjectAffected": "Computer Affected",
+                    "ObjectAffected": "ObjectAffected",
                     "Who": "Who",
-                    "Date": "When",
+                    "Date": "Date",
                     "ID": "Event ID",
+                    "KeyWord": "KeyWord",
+                    "NoNameB4": "EventAction",
                     "RecordID": "Record ID",
                     "GatheredFrom": "Gathered From",
                     "GatheredLogName": "Gathered LogName"

@@ -3,6 +3,7 @@
 The following are group policy object (GPO) recommendations for an optimal WEF setup. Recommendations should be taken as advice, and should be custom-tailored for your own organization and risk tolerance.
 
 Domain Controller Enhanced Auditing Policy
+
 -----
 
 **Description**: This policy enables the high-security auditing recommendations by Microsoft. This is applied to all domain controllers and will configure the following settings:

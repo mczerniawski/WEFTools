@@ -204,8 +204,28 @@ Invoke-Command -ComputerName $CollectorName -ScriptBlock {
 
 #region [Local] Add domain controllers to specific WEF groups
 #Select which groups you'd like to add Domain Controllers to
-#Proposed minimal groups are:
-############################# TODO
+
+#### Proposed minimal groups are:
+<#
+WEF-Account-Lockout
+WEF-Account-Management
+WEF-Active-Directory
+WEF-Authentication
+WEF-Log-Deletion-Security
+WEF-Log-Deletion-System
+WEF-Kerberos
+WEF-Services
+WEF-Sysmon
+WEF-System-Time-Change
+WEF-Task-Scheduler
+WEF-Windows-Defender
+WEF-NTLM
+WEF-Application-Crashes
+WEF-DNS
+WEF-Firewall
+WEF-Group-Policy-Errors
+#>
+####
 $Groups = Get-ADGroup -filter * -SearchBase $OUPathforWEFGroups | Out-GridView -PassThru
 
 $DomainControllers = (Get-ADDomain | Select-Object -ExpandProperty ReplicaDirectoryServers)
@@ -240,8 +260,29 @@ Invoke-Command -ComputerName $DomainControllers -ScriptBlock {
     cmd /c 'gpupdate /force'
 } -InDisconnectedSession
 
-# Recommended groups where computers to add:
-####################### TODO
+##### Recommended groups where computers to add:
+<#
+WEF-Account-Lockout
+WEF-Account-Management
+WEF-Active-Directory
+WEF-Applocker
+WEF-Autoruns
+WEF-Authentication
+WEF-Device-Guard
+WEF-Firewall
+WEF-Group-Policy-Errors
+WEF-Kerberos
+WEF-Log-Deletion-Security
+WEF-Log-Deletion-System
+WEF-NTLM
+WEF-Powershell
+WEF-Services
+WEF-Sysmon
+WEF-System-Time-Change
+WEF-Windows-Defender
+WEF-Windows-Updates
+#####
+#>
 
 # Cleanup
 $CollectorSession | Remove-PSSession
