@@ -51,7 +51,7 @@ Description = 'Tools to manage Palantir WEF and utilize Azure Monitor'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-  RequiredModules = @('PSWinReportingV2','PSEventViewer','PSSharedGoods','PSWriteExcel','PSWriteHTML')
+#  RequiredModules = @('PSWinReportingV2','PSEventViewer','PSSharedGoods','PSWriteExcel','PSWriteHTML')
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
 
