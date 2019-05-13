@@ -14,7 +14,7 @@ function Get-WESearchTimeFromCache {
     )
     process {
         Write-Verbose "Reading Cache from {$Path}"
-        $Cache = Get-ConfigurationData -ConfigurationPath $Path -OutputType HashTable
+        $Cache = Get-ConfigurationData -ConfigurationPath $Path -OutputType HashTable -ErrorAction SilentlyContinue
 
         $CurrentDefinition = $Cache.Definitions.($WEDefinition)
         $CurrentDate = [DateTime]::UtcNow

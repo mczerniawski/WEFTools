@@ -4,7 +4,7 @@ function Get-EventFromWEC {
     param
     (
         [Parameter(Mandatory, HelpMessage = 'Name of file with definitions')]
-        [ValidateSet('ADComputerCreatedChanged','ADGroupChanges','ADGroupCreateDelete','ADPasswordChange','ADUserCreateDelete','ADUserAccountEnabledDisabled','ADUserLocked','ADUserUnlocked','LogClearSystem','LogClearSecurity')]
+        #[ValidateSet('ADComputerCreatedChanged','ADGroupChanges','ADGroupCreateDelete','ADPasswordChange','ADUserAccountEnabledDisabled','ADUserLocked','ADUserUnlocked','LogClearSystem','LogClearSecurity','OSStartupShutdownCrash','OSStartupShutdownDetailed','OSCrash')]
         [string[]]
         $WEDefinitionName,
 
@@ -46,10 +46,10 @@ function Get-EventFromWEC {
         [string]
         $WECacheExportFile,
 
-        [Parameter(Mandatory = $false, HelpMessage = 'Output Events to Screen',
+        [Parameter(Mandatory = $false, HelpMessage = 'Output Events to Pipe',
             ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
         [switch]
-        $Output
+        $PassThru
     )
     begin {
         if ($PSBoundParameters.ContainsKey('WEDefinitionPath')) {
@@ -96,7 +96,16 @@ function Get-EventFromWEC {
                     }
                     Write-EventToLogAnalytics @writeEventToLogAnalyticsSplat
                 }
-                if ($PSBoundParameters.ContainsKey('Output')) {
+                if ($PSBoundParameters.ContainsKey('WECacheExportFile') -and (-not ($PSBoundParameters.ContainsKey('WriteToAzureLog')))) {
+                    $updateWECacheExportFileSplat = @{
+                            Path             = $WECacheExportFile
+                            LastRunTime      = $invocationEndTime
+                            WEDefinition     = $definition
+                            LastExportStatus = 'NoExport'
+                        }
+                    Update-WECacheExportFile @updateWECacheExportFileSplat
+                }
+                if ($PSBoundParameters.ContainsKey('PassThru')) {
                     $WECEvent
                 }
             }

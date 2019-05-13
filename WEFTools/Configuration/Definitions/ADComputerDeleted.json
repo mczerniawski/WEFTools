@@ -1,0 +1,28 @@
+{
+    "SearchDefinition": {
+        "ADComputerDeleted": {
+            "Events": {
+                "Fields": {
+                    "Computer": "Domain Controller",
+                    "Action": "Action",
+                    "ObjectAffected": "ObjectAffected",
+                    "Who": "Who",
+                    "Date": "Date",
+                    "ID": "Event ID",
+                    "KeyWord": "KeyWord",
+                    "NoNameB4": "EventAction",
+                    "RecordID": "Record ID",
+                    "GatheredFrom": "Gathered From",
+                    "GatheredLogName": "Gathered LogName"
+                },
+                "Events": 4743,
+                "IgnoreWords": {},
+                "LogName": "Security",
+                "SortBy": "When",
+                "Enabled": true
+            },
+            "Enabled": true
+        }
+    },
+    "LogName": "WEC3-Account-Management"
+}

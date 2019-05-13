@@ -12,7 +12,7 @@
 RootModule = 'WEFTools.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.1'
+ModuleVersion = '0.2.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -24,7 +24,7 @@ GUID = '11123e91-5f08-425c-91bc-59240e591427'
 Author = 'Mateusz Czerniawski'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+CompanyName = 'Arcon'
 
 # Copyright statement for this module
 Copyright = '(c) 2019 Mateusz Czerniawski. All rights reserved.'
@@ -51,8 +51,7 @@ Description = 'Tools to manage Palantir WEF and utilize Azure Monitor'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-# RequiredModules = @()
-
+  RequiredModules = @('PSWinReportingV2','PSEventViewer','PSSharedGoods','PSWriteExcel','PSWriteHTML')
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
 
@@ -95,13 +94,13 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = @('WEF','WEC','PSWinReportingV2', 'PowerShell')
 
         # A URL to the license for this module.
-        # LicenseUri = ''
+        LicenseUri = 'https://github.com/mczerniawski/WEFTools/blob/master/LICENSE'
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/mczerniawski/WEFTools'
 
         # A URL to an icon representing this module.
         # IconUri = ''

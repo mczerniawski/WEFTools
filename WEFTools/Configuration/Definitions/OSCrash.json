@@ -1,0 +1,36 @@
+{
+    "SearchDefinition": {
+        "OSCrash": {
+            "Events": {
+                "Fields": {
+                    "Computer": "Computer",
+                    "Date": "Date",
+                    "MachineName": "ObjectAffected",
+                    "NoNameB3":"EventLevel",
+                    "EventAction":"EventActionDetail",
+                    "NoNameB4":"ShutdownDescription",
+                    "ID": "Event ID",
+                    "RecordID": "Record ID",
+                    "GatheredFrom": "Gathered From",
+                    "GatheredLogName": "Gathered LogName"
+                },
+                "Overwrite": {
+                    "EventAction": [
+                        "EventAction",
+                        "EventActionDetail",
+                        "System Crash"
+                    ]
+                },
+                "Ignore": {},
+                "Events": [
+                    6008
+                ],
+                "IgnoreWords": {},
+                "LogName": "System",
+                "Enabled": true
+            },
+            "Enabled": true
+        }
+    },
+    "LogName": "WEC5-Operating-System"
+}

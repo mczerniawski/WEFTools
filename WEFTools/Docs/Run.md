@@ -8,8 +8,14 @@
 Import-Module  WEFTools -Force
 Import-Module  PSWinReportingV2 -Force
 
-$WEDefinitionSet = @('ADComputerCreatedChanged','ADGroupChanges','ADGroupCreateDelete','ADPasswordChange','ADUserAccountEnabledDisabled','ADUserLocked','ADUserUnlocked','LogClearSystem','LogClearSecurity')
-
+$WEDefinitionSet = @('ADComputerCreatedChanged','ADComputerDeleted',
+                     'ADGroupChanges','ADGroupCreateDelete',
+                     'ADPasswordChange',
+                     'ADUserAccountEnabledDisabled','ADUserCreateDelete',
+                     'ADUserLocked','ADUserUnlocked',
+                     'LogClearSecurity','LogClearSystem',
+                     'OSCrash','OSStartupShutdownCrash','OSStartupShutdownDetailed'
+                     )
 $Times = @{
     CurrentDayMinuxDaysX = @{
         Enabled = $true
@@ -20,7 +26,7 @@ $Events = foreach ($def in $WEDefinitionSet) {
     $GetEventFromWECSplat = @{
         WEDefinitionName    = $def
         #Verbose            = $true
-        Output              = $true
+        PassThru            = $true
         Times               = $Times
     }
     Get-EventFromWEC @GetEventFromWECSplat
@@ -34,7 +40,15 @@ $Events
 
 import-module C:\AdminTools\WEFTools -Force
 
-$WEDefinitionSet = @('ADComputerCreatedChanged','ADGroupChanges','ADGroupCreateDelete','ADPasswordChange','ADUserAccountEnabledDisabled','ADUserLocked','ADUserUnlocked','LogClearSystem','LogClearSecurity')
+$WEDefinitionSet = @('ADComputerCreatedChanged','ADComputerDeleted',
+                     'ADGroupChanges','ADGroupCreateDelete',
+                     'ADPasswordChange',
+                     'ADUserAccountEnabledDisabled','ADUserCreateDelete',
+                     'ADUserLocked','ADUserUnlocked',
+                     'LogClearSecurity','LogClearSystem',
+                     'OSCrash','OSStartupShutdownCrash','OSStartupShutdownDetailed'
+                     )
+
 $CacheFile = 'C:\AdminTools\Cache.json'
 
 foreach ($def in $WEDefinitionSet) {

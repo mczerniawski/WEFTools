@@ -1,0 +1,22 @@
+{
+    "SearchDefinition": {
+        "YourDefinitionNameHere": {
+            "Events": {
+                "Fields": {
+                    },
+                "Ignore": {
+
+                },
+                "Events": [
+                    4741,
+                    4742
+                ],
+                "IgnoreWords": {},
+                "LogName": "Security",
+                "Enabled": true
+            },
+            "Enabled": true
+        }
+    },
+    "LogName": "WEC-LOG-NAME-HERE"
+}

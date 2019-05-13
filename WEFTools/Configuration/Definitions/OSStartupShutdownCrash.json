@@ -1,0 +1,33 @@
+{
+    "SearchDefinition": {
+        "OSStartupShutdownCrash": {
+            "Events": {
+                "Fields": {
+                    "Computer": "Computer",
+                    "Date": "Date",
+                    "MachineName": "ObjectAffected",
+                    "NoNameB4":"EventLevel",
+                    "NoNameB5": "EventAction",
+                    "NoNameB7":"EventSource",
+                    "ID": "Event ID",
+                    "RecordID": "Record ID",
+                    "GatheredFrom": "Gathered From",
+                    "GatheredLogName": "Gathered LogName"
+                },
+                "Ignore": {},
+                "Events": [
+                    12,
+                    13,
+                    41,
+                    4608,
+                    4621
+                ],
+                "IgnoreWords": {},
+                "LogName": "System",
+                "Enabled": true
+            },
+            "Enabled": true
+        }
+    },
+    "LogName": "WEC5-Operating-System"
+}
