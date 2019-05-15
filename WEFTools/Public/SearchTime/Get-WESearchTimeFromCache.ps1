@@ -2,7 +2,7 @@ function Get-WESearchTimeFromCache {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, HelpMessage = 'Path with Cache File')]
-        [ValidateScript( {Test-Path -Path $_ -PathType Leaf})]
+        #[ValidateScript( {Test-Path -Path $_ -PathType Leaf})]
         [string]
         $Path,
 
@@ -17,8 +17,10 @@ function Get-WESearchTimeFromCache {
         $Cache = Get-ConfigurationData -ConfigurationPath $Path -OutputType HashTable -ErrorAction SilentlyContinue
 
         $CurrentDefinition = $Cache.Definitions.($WEDefinition)
-        $CurrentDate = [DateTime]::UtcNow
-        $LastDate = $CurrentDefinition.LastSuccessExportTime
+        $CurrentDate = [DateTime]::Now
+        $LastDate = if($CurrentDefinition.LastSuccessExportTime) {
+            ($CurrentDefinition.LastSuccessExportTime).ToLocalTime()
+        }
         if ($null -eq $LastDate) {
             $Times = @{
                 Everything = @{

@@ -18,6 +18,7 @@ New-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders
 ## Create resource group and LA workspace
 
 ```powershell
+Install-Module AzureRm
 Import-Module AzureRm
 Connect-AzureRmAccount
 
@@ -67,9 +68,21 @@ $WorkspacePrimaryKey = Get-AzureRmOperationalInsightsWorkspaceSharedKeys -Resour
 $WorkspacePrimaryKey
 ```
 
-# Get Customer ID
+## Get Customer ID
 
 ```powershell
 $ALWorkspaceID = Get-AzureRmOperationalInsightsWorkspace -ResourceGroupName $resourceGroupName -Name $workspaceName | Select-Object -ExpandProperty CustomerId | Select-Object -ExpandProperty Guid
 $ALWorkspaceID
+```
+
+## (Optional) Export WorkspaceData to disk for later import
+
+```powershell
+$WorkspaceDataPath = 'c:\AdminTools\Workspace.dat'
+$WorkspaceData = @{
+    PrimaryKey = $WorkspacePrimaryKey
+    WorkspaceID = $ALWorkspaceId
+}
+
+$WorkspaceData | Export-CLIXml -path $WorkspaceDataPath
 ```
