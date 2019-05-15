@@ -12,7 +12,7 @@ Authored by Mateusz Czerniawski
 
 ## How to Run
 
-1. Start with [Deploy](.\Docs\Deploy.md) to deploy all components
-2. Then [Deploy-AzureLog-Workspace](.\Docs\Deploy-AzureLog-Workspace.md) to prepare Log Analytics Workspace
-3. Make sure you've set up proper GPO with [GPO_prepare](.\Docs\GPO_prepare.md)
-4. Then Create desired Scheduled task on WEC server as in [Run](.\Docs\Run.md) examples
+1. Start with [Deploy](docs/Deploy.md) to deploy all components
+2. Then [Deploy-AzureLog-Workspace](docs/Deploy-AzureLog-Workspace.md) to prepare Log Analytics Workspace
+3. Make sure you've set up proper GPO with [GPO_prepare](docs/GPO_prepare.md)
+4. Then Create desired Scheduled task on WEC server as in [Run](docs/Run.md) examples
