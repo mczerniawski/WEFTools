@@ -56,6 +56,9 @@ Invoke-WebRequest -UseBasicParsing -Uri https://github.com/palantir/windows-even
 #endregion
 
 #region [Remote] Copy WEF to destination server using $ToSession
+Invoke-Command -Session $CollectorSession -ScriptBlock {
+    New-Item -ItemType Directory -Path (Split-Path -Path $USING:DestinationRemoteFile -Parent)
+}
 Copy-Item -Path $OutFile -Destination $DestinationRemoteFile -ToSession $CollectorSession
 #endregion
 
@@ -72,8 +75,17 @@ Invoke-command -Session $CollectorSession -ScriptBlock {
 
 #endregion
 
+#region [Local] [AD] Create OU for WEF Groups
+$TestOU = Get-ADOrganizationalUnit -filter "DistinguishedName -like `"$OUPathforWEFGroups`"" -ErrorAction SilentlyContinue
+if(-not $TestOU) {
+    $OUPath = 'OU={0}' -f ((($OUPathforWEFGroups) -split(',OU=') | select -Skip 1) -join (',OU=') )
+    Write-Host "OU for WEFRules not found. Creating in {$OUPath}"
+    New-ADOrganizationalUnit -Path $OUPath -Name $OUNameForWEFRules -Description 'WEFRules'
+}
+#endregion
+
 #region [Local] [AD] Get WEF subscriptions to create groups for each xml subscription:
-$GroupNames = Get-ChildItem $DestinationFullPath -Filter '*.xml' | Select-Object BaseName
+$GroupNames = Get-ChildItem $DestinationFullPath -Filter '*.xml' | Select-Object -ExpandProperty BaseName
 foreach ($sampleRuleName in $GroupNames){
     $groupProps = @{
         Name = '{0}-{1}' -f $GroupPrefix ,$sampleRuleName
