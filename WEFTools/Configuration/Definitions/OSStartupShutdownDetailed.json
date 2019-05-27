@@ -9,13 +9,27 @@
                     "UserId": "SubjectUserSid",
                     "NoNameB3":"EventLevel",
                     "NoNameB4":"ShutdownDescription",
-                    "NoNameB6": "EventAction",
+                    "NoNameB6": "EventActionDetails",
+                    "EventAction": "EventAction",
                     "NoNameB5": "ShutdownCode",
                     "NoNameB7":"ShutdownComment",
                     "ID": "Event ID",
                     "RecordID": "Record ID",
                     "GatheredFrom": "Gathered From",
                     "GatheredLogName": "Gathered LogName"
+                },
+                "Overwrite": {
+                    "EventAction#1": [
+                        "Event ID",
+                         1001,
+                        "Application crash"
+                    ],
+                    "EventAction#2": [
+                        "Event ID",
+                         1074,
+                        "Shutdown initiated"
+                    ]
+
                 },
                 "Ignore": {},
                 "Events": [

@@ -31,7 +31,11 @@ $Events = foreach ($def in $WEDefinitionSet) {
     }
     Get-EventFromWEC @GetEventFromWECSplat
 }
-$Events
+$Keys = $Events.GetEnumerator() | Select-Object -ExpandProperty Keys
+
+foreach ($k in $Keys) {
+    $Events.$k | Out-GridView -Title $k
+}
 
 
 ## Run with cache file and send to Azure Logs

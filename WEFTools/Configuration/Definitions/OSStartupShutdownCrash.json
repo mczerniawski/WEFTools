@@ -7,12 +7,40 @@
                     "Date": "Date",
                     "MachineName": "ObjectAffected",
                     "NoNameB4":"EventLevel",
-                    "NoNameB5": "EventAction",
+                    "NoNameB5": "EventActionDetails",
+                    "EventAction": "EventAction",
                     "NoNameB7":"EventSource",
                     "ID": "Event ID",
                     "RecordID": "Record ID",
                     "GatheredFrom": "Gathered From",
                     "GatheredLogName": "Gathered LogName"
+                },
+                 "Overwrite": {
+                    "EventAction#1": [
+                        "Event ID",
+                         12,
+                        "System Start"
+                    ],
+                    "EventAction#2": [
+                        "Event ID",
+                         13,
+                        "System Shutdown"
+                    ],
+                    "EventAction#3": [
+                        "Event ID",
+                         41,
+                        "System Dirty Reboot"
+                    ],
+                    "EventAction#4": [
+                        "Event ID",
+                         4608,
+                        " Windows is starting up"
+                    ],
+                    "EventAction#5": [
+                        "Event ID",
+                         4621,
+                         "Administrator recovered system from CrashOnAuditFail"
+                    ]
                 },
                 "Ignore": {},
                 "Events": [
