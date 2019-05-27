@@ -1,13 +1,13 @@
 # Sample scripts to run
 
 <!-- TOC -->
-- [Install required modules](##Install-PSWinReporting-and-WEFTools)
-- [Check current list of definitions](##Get-Current-Definition-List)
-- [How to run search with all definitions](##Run-all-definitions)
-- [How to run search with only specific definitions](##Run-only-specific-Definitions)
-- [How using cache file send results to Azure log](##Use-Cache-and-Azure-Log)
-- [Easily view all results in out-gridview windows](##View-all-definitions-in-Out-Grid-windows)
-- [Check cache file content](##View-cache-file-content)
+- [Install required modules](#Install-PSWinReporting-and-WEFTools)
+- [Check current list of definitions](#Get-Current-Definition-List)
+- [How to run search with all definitions](#Run-all-definitions)
+- [How to run search with only specific definitions](#Run-only-specific-Definitions)
+- [How using cache file send results to Azure log](#Use-Cache-and-Azure-Log)
+- [Easily view all results in out-gridview windows](#View-all-definitions-in-Out-Grid-windows)
+- [Check cache file content](#View-cache-file-content)
 <!-- /TOC -->
 
 ## Install PSWinReporting and WEFTools
