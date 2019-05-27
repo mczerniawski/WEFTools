@@ -3,14 +3,26 @@ function Get-EventFromWEC {
 
     param
     (
-        [Parameter(Mandatory, HelpMessage = 'Name of file with definitions')]
-        #[ValidateSet('ADComputerCreatedChanged','ADGroupChanges','ADGroupCreateDelete','ADPasswordChange','ADUserAccountEnabledDisabled','ADUserLocked','ADUserUnlocked','LogClearSystem','LogClearSecurity','OSStartupShutdownCrash','OSStartupShutdownDetailed','OSCrash')]
+        [Parameter(Mandatory=$false, HelpMessage = 'Name of file with definitions')]
         [string[]]
         $WEDefinitionName,
 
-        [Parameter(Mandatory, HelpMessage = 'Hashtable with time range definition')]
-        [Hashtable]
+        [Parameter(Mandatory=$false, HelpMessage = 'Time range definition')]
+        [ValidateSet('PastHour', 'CurrentHour', 'PastDay', 'CurrentDay', 'CurrentMonth', 'PastMonth', 'PastQuarter', 'CurrentQuarter', 'CurrentDayMinusDayX', 'CurrentDayMinuxDaysX', 'CustomDate', 'Last3days', 'Last7days', 'Last14days', 'Everything')]
+        [string]
         $Times,
+
+        [Parameter(Mandatory = $false, HelpMessage = 'Days for specific Times parameter')]
+        [int32]
+        $Days,
+
+        [Parameter(Mandatory = $false, HelpMessage = 'DateTime for specific Times parameter')]
+        [DateTime]
+        $DateFrom,
+
+        [Parameter(Mandatory = $false, HelpMessage = 'DateTime for specific Times parameter')]
+        [DateTime]
+        $DateTo,
 
         [Parameter(Mandatory = $false, HelpMessage = 'Path were definitions are stored')]
         [ValidateScript( { Test-Path -Path $_ -PathType Container })]
@@ -66,13 +78,44 @@ function Get-EventFromWEC {
         }
     }
     process {
+        if($PSBoundParameters.ContainsKey('WEDefinitionName')){
+            $WEDefinitionSet = $WEDefinitionName
+        }
+        else {
+            $WEDefinitionSet = Get-WEDefinitionList -WEDefinitionPath $WEDefinitionPathFinal
+        }
+        Write-Verbose "Will proces with definitions: {$($WEDefinitionSet -join ',')}"
 
-        foreach ( $definition in $WEDefinitionName) {
+        #region Set Time
+        $setWESearchTimeSplat = @{}
+        if($PSBoundParameters.ContainsKey('Times')) {
+            $setWESearchTimeSplat.Times = $Times
+            if($PSBoundParameters.ContainsKey('Days')) {
+                $setWESearchTimeSplat.Days = $Days
+            }
+            if($PSBoundParameters.ContainsKey('DateFrom')) {
+                $setWESearchTimeSplat.DateFrom = $DateFrom
+            }
+            if($PSBoundParameters.ContainsKey('DateTo')) {
+                $setWESearchTimeSplat.DateTo = $DateTo
+            }
+            $TimesSet = Set-WESearchTime @setWESearchTimeSplat
+        }
+        elseif(-not ($PSBoundParameters.ContainsKey('Times'))) {
+            $TimesSet = Set-WESearchTime -Times 'Everything'
+        }
+
+        #endregion
+
+        foreach ( $definition in $WEDefinitionSet) {
             $Definitions = Get-WEDefinition -WEDefinitionName $definition -WEDefinitionPath $WEDefinitionPathFinal
             $FindEventsSplat = @{
                 Definitions = $Definitions.SearchDefinition
-                Times         = $Times
+                Times         = $TimesSet
                 Target        = Set-WESearchTarget -computerName $ComputerToQuery -LogName $Definitions.LogName
+            }
+            if ($PSBoundParameters.ContainsKey('WECacheExportFile')){
+                $FindEventsSplat.Times = Get-WESearchTimeFromCache -Path $WECacheExportFile -WEDefinition $definition
             }
             if ($PSBoundParameters.ContainsKey('Verbose')) {
                 $FindEventsSplat.Verbose = $true
