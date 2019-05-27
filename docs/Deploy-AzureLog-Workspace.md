@@ -56,7 +56,7 @@ If this resource group is operating on a free tier it's best to set up daily cap
 - Set a volume which keeps you within your 5GB/month limit (e.g. 0.15GB/day)
 - Press OK to apply the settings
 
-![AL daily CAP](\Images\SetDailyCap.png)
+![AL daily CAP](Images/SetDailyCap.png)
 
 ## Get Workspace Private Key
 

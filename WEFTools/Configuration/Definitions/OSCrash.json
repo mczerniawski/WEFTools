@@ -7,17 +7,17 @@
                     "Date": "Date",
                     "MachineName": "ObjectAffected",
                     "NoNameB3":"EventLevel",
-                    "EventAction":"EventActionDetail",
-                    "NoNameB4":"ShutdownDescription",
+                    "NoNameB4":"EventActionDetails",
+                    "EventAction": "EventAction",
                     "ID": "Event ID",
                     "RecordID": "Record ID",
                     "GatheredFrom": "Gathered From",
                     "GatheredLogName": "Gathered LogName"
                 },
                 "Overwrite": {
-                    "EventAction": [
-                        "EventAction",
-                        "EventActionDetail",
+                    "EventAction#1": [
+                        "Event ID",
+                         6008,
                         "System Crash"
                     ]
                 },
