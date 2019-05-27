@@ -2,8 +2,8 @@
 
 |Build Status|Branch|
 |---|---|
-|[![Build status](https://ci.appveyor.com/api/projects/status/b2pge2fex23sf2yi?svg=true)](https://ci.appveyor.com/project/mczerniawski/weftools)|master|
-|[![Build status](https://ci.appveyor.com/api/projects/status/b2pge2fex23sf2yi/branch/master?svg=true)](https://ci.appveyor.com/project/mczerniawski/weftools/branch/dev)|dev|
+|[![Build status](https://ci.appveyor.com/api/projects/status/b2pge2fex23sf2yi/branch/master?svg=true)](https://ci.appveyor.com/project/mczerniawski/weftools)|master|
+|[![Build status](https://ci.appveyor.com/api/projects/status/b2pge2fex23sf2yi/branch/dev?svg=true)](https://ci.appveyor.com/project/mczerniawski/weftools/branch/dev)|dev|
 
 ## What is WEFTools
 
