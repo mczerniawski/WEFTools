@@ -17,30 +17,23 @@ Invoke-Command -Session $TaskScheduleRunner -ScriptBlock {
 
 #region [Remote] configure Task Scheduler on WEC server
 Invoke-Command -Session $TaskScheduleRunner -ScriptBlock {
-    $WriteToAzureLog = $true
+    #$WriteToAzureLog = $true
     $ALTableIdentifier = 'WECLogs'
-    $ALWorkspaceID = ''
-    $WorkspacePrimaryKey = ''
-    $WEDefinitionSet = @('ADComputerCreatedChanged', 'ADGroupChanges', 'ADGroupCreateDelete', 'ADPasswordChange', 'ADUserAccountEnabledDisabled', 'ADUserLocked', 'ADUserUnlocked', 'LogClearSystem', 'LogClearSecurity', 'OSStartupShutdownCrash', 'OSStartupShutdownDetailed', 'OSCrash')
+    $ALWorkspaceID = 'e2920363-xxxx-yyyy-zzzz-7400006ff801'
+    $WorkspacePrimaryKey = 'cGNQmJJ.........SCQYFIAdN00cjfR/PvDXABfxLf....=='
     $WECacheFile = 'C:\AdminTools\WEFCache.json'
     $Repeat = 10
     $TaskName = 'WEF Test task'
     $TaskCommand = @"
-            Import-Module WEFTools -Force
-            `$WEDefinitionName = @('ADComputerCreatedChanged', 'ADGroupChanges', 'ADGroupCreateDelete', 'ADPasswordChange', 'ADUserAccountEnabledDisabled', 'ADUserLocked', 'ADUserUnlocked', 'LogClearSystem', 'LogClearSecurity', 'OSStartupShutdownCrash', 'OSStartupShutdownDetailed', 'OSCrash')
-            foreach (`$def in `$WEDefinitionName) {
-                `$Times = Get-WESearchTimeFromCache -Path '$WECacheFile' -WEDefinition `$def
-                `$GetEventFromWECSplat = @{
-                    WEDefinitionName    = `$def
-                    WriteToAzureLog     = `$$WriteToAzureLog
-                    ALTableIdentifier   = '$ALTableIdentifier'
-                    ALWorkspaceID       = '$ALWorkspaceID'
-                    WorkspacePrimaryKey = '$WorkspacePrimaryKey'
-                    Times = `$Times
-                    WECacheExportFile = '$WECacheFile'
-                }
-                Get-EventFromWEC @GetEventFromWECSplat
-            }
+        Import-Module WEFTools -Force
+        `$GetEventFromWECSplat = @{
+            WriteToAzureLog     = `$true
+            ALTableIdentifier   = '$ALTableIdentifier'
+            ALWorkspaceID       = '$ALWorkspaceID'
+            WorkspacePrimaryKey = '$WorkspacePrimaryKey'
+            WECacheExportFile   = '$WECacheFile'
+        }
+        Get-EventFromWEC @GetEventFromWECSplat
 "@
     $TaskActionSettings = @{
         Execute  = 'powershell.exe'

@@ -20,7 +20,6 @@ Make sure your:
 - WEC sever is properly [deployed](docs/Deploy.md),
 - GPO in AD is [created](docs/GPO_prepare.md),
 - Azure Workspace is [prepared](docs/Deploy-AzureLog-Workspace.md)
-
-Then review [examples](docs/Run.md) and choose your style.
+- Then review [examples](docs/Run.md) and choose your style.
 
 Finally set a schedule task on a server of your choice - it can be `WEC server` itself or `any other management server` with access to both Azure subcription and WEC server
