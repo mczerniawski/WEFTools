@@ -122,9 +122,10 @@ function Get-EventFromWEC {
             }
 
             $invocationStartTime = [DateTime]::UtcNow
-            $WECEvent = Find-Events @FindEventsSplat
+            $FindEvents = Find-Events @FindEventsSplat
             $invocationEndTime = [DateTime]::UtcNow
-            if ($WECEvent.($definition)) {
+            if ($FindEvents) {
+                $WECEvent = @{ $definition = $FindEvents }
                 if ($PSBoundParameters.ContainsKey('WriteToAzureLog')) {
                     $writeEventToLogAnalyticsSplat = @{
                         WECEvent            = $WECEvent
