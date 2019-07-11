@@ -13,6 +13,8 @@
 ## Install PSWinReporting and WEFTools
 
 ```powershell
+Install-Module WEFTools -Force
+Install-Module PSWinReportingV2 -Force
 Import-Module  WEFTools -Force
 Import-Module  PSWinReportingV2 -Force
 ```
