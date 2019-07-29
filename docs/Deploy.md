@@ -93,10 +93,13 @@ foreach ($sampleRuleName in $GroupNames){
         GroupScope = 'Universal'
         Description= 'Computers from this group will receive subscription {0} from WEC server' -f $sampleRuleName
     }
-    $testGroup = Get-ADGroup -filter {Name -eq $sampleRuleName} -ErrorAction SilentlyContinue
+    $testGroup = Get-ADGroup -filter ('Name -eq "{0}"' -f $groupProps.Name)
     if (-not ($testGroup)) {
         Write-Host "Creating Group {$($groupProps.Name)}"
         New-ADGroup @groupProps
+    }
+    else {
+        Write-Host "Group {$($groupProps.Name)} already exists"
     }
 }
 #endregion
