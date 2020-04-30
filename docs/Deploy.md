@@ -33,6 +33,7 @@ $DestinationRemoteFile = Join-Path -Path 'C:\AdminTools' -ChildPath $OutFileName
 $DestinationUnzipPath = 'C:\AdminTools\WEF\'
 $DestinationFullPath = Join-Path -Path $DestinationUnzipPath -ChildPath 'windows-event-forwarding-master\wef-subscriptions'
 $DestinationFullPathEventChannels = Join-Path -Path $DestinationUnzipPath -ChildPath 'windows-event-forwarding-master\windows-event-channels'
+$OUNameForWEFRules = 'WEFRules'
 $OUPathforWEFGroups = 'OU=WEFRules,OU=Security Groups,{0}' -f $FQDNDomainName
 $GroupPrefix = 'WEF' #for generating AD groups
 $LogPath = 'D:\Logs'
